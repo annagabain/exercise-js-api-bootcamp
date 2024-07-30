@@ -1,3 +1,5 @@
+// Excercise 1
+
 function requestAllPokemons() {
   fetch("https://santosnr6.github.io/Data/pokemons.json")
     .then((response) => response.json())
@@ -9,4 +11,23 @@ function requestAllPokemons() {
       });
     });
 }
-requestAllPokemons();
+// requestAllPokemons();
+
+//---------------------------------------------------------------------------------
+// Excercise 2
+
+async function fetchAllDogs() {
+  try {
+    let allDogsResponse = await fetch(
+      "https://majazocom.github.io/Data/dogs.json"
+    );
+    let dogData = await allDogsResponse.json();
+    // console.log(dogData);
+
+    dogData.forEach((dog) => console.log(dog.name));
+    dogData.forEach((dog) => (document.body.innerHTML += dog.name + "<br>"));
+  } catch (error) {
+    console.log(error);
+  }
+}
+fetchAllDogs();
