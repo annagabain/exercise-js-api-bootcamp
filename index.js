@@ -30,4 +30,32 @@ async function fetchAllDogs() {
     console.log(error);
   }
 }
-fetchAllDogs();
+// fetchAllDogs();
+
+//---------------------------------------------------------------------------------
+// Excercise 3
+
+async function fetchAllBooks() {
+  try {
+    let allBooksResponse = await fetch(
+      "https://majazocom.github.io/Data/books.json"
+    );
+    // console.log(allBooksResponse.json());
+    let allBooksData = await allBooksResponse.json();
+    console.log("allBooksData", allBooksData);
+
+    let shortBooks = allBooksData.filter((book) => book.pages <= 500);
+    console.log("Short Books", shortBooks);
+
+    // shortBook.forEach((shortBook) => console.log("short Book", shortBook));
+    shortBooks.forEach(
+      (book) =>
+        (document.body.innerHTML += `${book.title} <br> ------------<br>`)
+    );
+  } catch (error) {
+    console.log(error);
+    document.body.innerHTML += `${error}`
+
+  }
+}
+fetchAllBooks();
