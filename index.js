@@ -54,8 +54,42 @@ async function fetchAllBooks() {
     );
   } catch (error) {
     console.log(error);
-    document.body.innerHTML += `${error}`
-
+    document.body.innerHTML += `${error}`;
   }
 }
-fetchAllBooks();
+// fetchAllBooks();
+
+//---------------------------------------------------------------------------------
+// Excercise 4
+
+async function fetchAllVisitors() {
+  try {
+    let response = await fetch(
+      "https://majazocom.github.io/Data/attendees.json"
+    );
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
+
+    let data = await response.json();
+    console.log("all visitor data", data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+fetchAllVisitors();
+
+async function filterAllergicAttendees() {
+  let visitors = await fetchAllVisitors();
+//   console.log("All Visitors", visitors);
+
+  let allergicAttendees = visitors.filter((visitor) => visitor.attending == true && visitor.allergies.length != 0);
+  console.log("Attendees with allergies", allergicAttendees);
+  document.body.innerHTML += `<br> ----------------- <br> ATTENDEES  <br> With Allergies <br> ----------------- <br>`;
+
+  allergicAttendees.forEach((attendee) => {
+    document.body.innerHTML += ` ${attendee.name} - special diet or allergic to  <br> ${attendee.allergies} <br>................<br> `;
+  });
+}
+filterAllergicAttendees();
